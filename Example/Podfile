@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'WDTTileManager_Example' do
+  pod 'WDTTileManager', :path => '../'
+
+  target 'WDTTileManager_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
