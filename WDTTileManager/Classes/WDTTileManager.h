@@ -25,6 +25,10 @@
 @property(nonatomic,retain) UIColor *topBarBackgroundColor;
 @property(nonatomic,retain) UIColor *dateLabelTextColor;
 @property(nonatomic,retain) UIFont *dateLabelFont;
+@property(nonatomic,retain) UIColor *shadowColor;
+@property(nonatomic,retain) UIColor *tintColor;
+@property(nonatomic) float opacity;
+@property(nonatomic) float tileSize;
 
 -(void)animateTiles:(BOOL)animate;
 -(void)showFirstFrame:(BOOL)show;

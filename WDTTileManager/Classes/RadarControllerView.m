@@ -11,15 +11,6 @@
 
 @interface RadarControllerView ()
 
-@property(nonatomic,retain) UIColor *bottomBarBackgroundColor;
-@property(nonatomic,retain) UIColor *topBarBackgroundColor;
-@property(nonatomic,retain) UIColor *dateLabelTextColor;
-@property(nonatomic,retain) UIFont *dateLabelFont;
-@property(nonatomic,retain) UIColor *shadowColor;
-@property(nonatomic,retain) UIColor *tintColor;
-
-
-
 @property(nonatomic) BOOL animating;
 
 @end
@@ -197,6 +188,7 @@
     _topLabel.text = [NSString stringWithFormat:@"%ld:%@%@",(long)date.intHour, date.minuteString, date.ampm];
     
     [_slider setValue:frame animated:YES];
+    
 }
 
 -(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {

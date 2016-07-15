@@ -36,6 +36,14 @@
 @property(nonatomic,retain) VBFPopFlatButton *playButton;
 @property(nonatomic,retain) IBOutlet UIButton *nowButton;
 
+// View Parameters
+@property(nonatomic,retain) UIColor *bottomBarBackgroundColor;
+@property(nonatomic,retain) UIColor *topBarBackgroundColor;
+@property(nonatomic,retain) UIColor *dateLabelTextColor;
+@property(nonatomic,retain) UIFont *dateLabelFont;
+@property(nonatomic,retain) UIColor *shadowColor;
+@property(nonatomic,retain) UIColor *tintColor;
+
 // Interface Methods
 -(IBAction)sliderChanged:(id)sender;
 

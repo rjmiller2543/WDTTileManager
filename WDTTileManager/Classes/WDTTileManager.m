@@ -56,8 +56,13 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
         _tileCount = 0;
         _isAnimating = false;
         
+        //Set with Default Opacity
+        _opacity = kTileShow;
+        
+        //Set with Default Tile Size
+        _tileSize = 1024;
+        
         _isLoadingFrames = YES;
-        //[self loadCurrentTile];
         _appKey = appKey;
         _appID = appID;
         [self addRadarController];
@@ -72,6 +77,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 }
 
 + (id)loadNibNamed:(NSString *)nibName ofClass:(Class)objClass {
+    
     if (nibName && objClass) {
         NSBundle *bundle = [NSBundle bundleForClass:objClass];
         NSArray *objects = [bundle loadNibNamed:nibName
@@ -84,6 +90,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     }
     
     return nil;
+    
 }
 
 -(void)addRadarController {
@@ -118,8 +125,6 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 -(void)getValidWdtFramesWithAppKey:(NSString*)appKey appID:(NSString*)appID {
     
     //https://skywisetiles.wdtinc.com/swarmweb/valid_frames?product=globalirgrid
-    //NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    //_manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     NSMutableDictionary *jsonDict = [NSMutableDictionary dictionaryWithObject:@"nalowaltradarcontours" forKey:@"product"];
     
@@ -149,6 +154,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     [[session dataTaskWithRequest:request  completionHandler:validFramesCallback] resume];
+    
 }
 
 -(void)getTilesWithData:(NSData *)data {
@@ -161,13 +167,15 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     [self loadCurrentTile];
     
     [_radarView setSliderFrames:_validTimeFrames.count];
+    
 }
 
 -(void)clearTileCache {
+    
     for (WDTWeatherTile *tileLayer in _tileLayers) {
         [tileLayer clearTileCache];
     }
-    //[_wdtTile clearTileCache];
+    
 }
 
 -(void)releaseTiles {
@@ -182,8 +190,6 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 
 -(void)increaseTileCount:(NSNotification *)notification {
     _tileCount++;
-    //NSDictionary *dict = [notification object];
-    //NSLog(@"begin download of frame: %@", [dict description]);
     if (_tileCount > _maxTiles)
         _maxTiles = _tileCount;
     
@@ -197,12 +203,14 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     }
     
     NSLog(@"finished download frame: %@", [[notification object] description]);
-    if (_tileCount == 0/* && _isLoadingFrames*/) {
+    if (_tileCount == 0) {
         [self tileFramesDidFinish];
     }
+    
 }
 
 -(void)tileLayerDidFinishDownload:(NSString *)frame {
+    
     if (_isLoadingFrames) {
         if ([self.delegate respondsToSelector:@selector(animationLoadingProgress:)]) {
             [self.delegate animationLoadingProgress:((float)_animationFrame / (float)_validTimeFrames.count)];
@@ -231,9 +239,9 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     
     tile.frame = [_validTimeFrames lastObject];
     
-    tile.tileSize = 1024;
+    tile.tileSize = _tileSize;
     tile.map = _map;
-    tile.opacity = kTileShow;
+    tile.opacity = _opacity;
     
     [tile setAppKey:_appKey];
     [tile setAddID:_appID];
@@ -242,7 +250,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
         _tileCount = count;
     };
     
-    [_tileLayers addObject:tile];
+    //[_tileLayers addObject:tile];
     
     _currentAnimateTile = tile;
     
@@ -258,25 +266,17 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     BOOL firstTile = true;
     for (NSString *thisFrame in _validTimeFrames) {
         
-        if ([thisFrame isEqualToString:[_validTimeFrames lastObject]]) {
-            break;
-        }
-        
         WDTWeatherTile *tile = [[WDTWeatherTile alloc] init];
         
         tile.frame = thisFrame;
         
-        tile.tileSize = 1024;
+        tile.tileSize = _tileSize;
         tile.map = _map;
         
-        if (firstTile) {
-            tile.opacity = kTileShow;
-            firstTile = false;
-        }
-        else
-            tile.opacity = kTileHide;
+        tile.opacity = kTileHide;
         
         [_tileLayers addObject:tile];
+        
     }
     
 }
@@ -293,7 +293,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     else
         [_tileLayers objectAtIndex:_animationFrame-1].opacity = kTileHide;
     
-    [_tileLayers objectAtIndex:_animationFrame].opacity = kTileShow;
+    [_tileLayers objectAtIndex:_animationFrame].opacity = _opacity;
     
     _currentAnimateTile = [_tileLayers objectAtIndex:_animationFrame];
     
@@ -311,7 +311,6 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 
 -(void)startAnimation {
     _isLoadingFrames = YES;
-    //[self getAllValidTiles];
     
     _animationFrame = 0;
     _animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(animateTile) userInfo:nil repeats:YES];
@@ -322,10 +321,6 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     
     _isAnimating = false;
     [_animationTimer invalidate];
-    /*
-    for (WDTWeatherTile *tile in _tileLayers) {
-        tile.opacity = kTileHide;
-    }*/
     
 }
 
@@ -336,7 +331,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 -(void)showFirstFrame:(BOOL)show {
     
     _currentAnimateTile.opacity = kTileHide;
-    [_tileLayers lastObject].opacity = show ? kTileShow : kTileHide;
+    [_tileLayers lastObject].opacity = show ? _opacity : kTileHide;
     
     [_radarView updateViewWithTime:[_validTimeFrames lastObject] andFrame:[_validTimeFrames count] - 1];
     
@@ -348,11 +343,66 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     
     _currentAnimateTile = [_tileLayers objectAtIndex:frame];
     
-    _currentAnimateTile.opacity = kTileShow;
+    _currentAnimateTile.opacity = _opacity;
     
     [_radarView updateViewWithTime:[_validTimeFrames objectAtIndex:frame] andFrame:frame];
     
 }
+
+#pragma mark - Setters
+-(void)setShadowColor:(UIColor *)shadowColor {
+    _shadowColor = shadowColor;
+    
+    [_radarView setShadowColor:shadowColor];
+}
+
+-(void)setTintColor:(UIColor *)tintColor {
+    _tintColor = tintColor;
+    
+    [_radarView setTintColor:tintColor];
+}
+
+-(void)setDateLabelFont:(UIFont *)dateLabelFont {
+    _dateLabelFont = dateLabelFont;
+    
+    [_radarView dateLabelFont];
+}
+
+-(void)setDateLabelTextColor:(UIColor *)dateLabelTextColor {
+    _dateLabelTextColor = dateLabelTextColor;
+    
+    [_radarView setDateLabelTextColor:dateLabelTextColor];
+}
+
+-(void)setTopBarBackgroundColor:(UIColor *)topBarBackgroundColor {
+    _topBarBackgroundColor = topBarBackgroundColor;
+    
+    [_radarView setTopBarBackgroundColor:topBarBackgroundColor];
+}
+
+-(void)setBottomBarBackgroundColor:(UIColor *)bottomBarBackgroundColor {
+    _bottomBarBackgroundColor = bottomBarBackgroundColor;
+    
+    [_radarView setBottomBarBackgroundColor:bottomBarBackgroundColor];
+}
+-(void)setTileSize:(float)tileSize {
+    
+    _tileSize = tileSize;
+    for (WDTWeatherTile *thisTile in _tileLayers) {
+        thisTile.map = NULL;
+        thisTile.tileSize = tileSize;
+        thisTile.map = _map;
+    }
+    
+}
+
+-(void)setOpacity:(float)opacity {
+    
+    _opacity = opacity;
+    _currentAnimateTile.opacity = opacity;
+    
+}
+
 
 #pragma mark - Radar Controller Delegate Methods
 -(void)radarControllerNowButtonPressed {

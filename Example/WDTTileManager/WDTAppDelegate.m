@@ -11,7 +11,7 @@
 @import GoogleMaps;
 
 #warning REPLACE THIS WITH YOUR GOOGLE MAPS API KEY
-#define kGMSAPIKey  @"AIzaSyDL7ERjvfCtC-rUYqVwGcRfhL0yeIcYIKk"
+#define kGMSAPIKey  @"AIzaSyDVjsuEprtUM_DDgJnBu7EZt-AlTsFAAms"
 
 @implementation WDTAppDelegate
 

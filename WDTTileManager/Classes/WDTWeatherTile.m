@@ -61,8 +61,6 @@ typedef void (^WDTCompletionCallback)(NSData * _Nullable data, NSURLResponse * _
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY-MM-DDTHH:MM:SS"];
     NSString *url = [NSString stringWithFormat:@"https://skywisetiles.wdtinc.com/swarmweb/tile/nalowaltradarcontours/%@/%lu/%lu/%lu.gif", _frame, zoom, x, y];
-    //NSString *url = [NSString stringWithFormat:@"https://skywisetiles.wdtinc.com/swarmweb/comptile/%lu/%lu/%lu.gif", zoom, x, y];
-
     
     // Create the GMSTileLayer
     NSMutableURLRequest *request = [ser requestWithMethod:@"GET" URLString:url parameters:nil error:nil];
