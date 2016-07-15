@@ -184,8 +184,11 @@
 
 -(void)updateViewWithTime:(NSString *)time andFrame:(NSInteger)frame {
     
-    NSDate *date = [NSDate formattedDateWithDateString:time withFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    _topLabel.text = [NSString stringWithFormat:@"%ld:%@%@",(long)date.intHour, date.minuteString, date.ampm];
+    NSDate *someDateInUTC = [NSDate formattedDateWithDateString:time withFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    NSTimeInterval timeZoneSeconds = [[NSTimeZone localTimeZone] secondsFromGMT];
+    NSDate *dateInLocalTimezone = [someDateInUTC dateByAddingTimeInterval:timeZoneSeconds];
+    
+    _topLabel.text = [NSString stringWithFormat:@"%ld:%@%@",(long)dateInLocalTimezone.intHour, dateInLocalTimezone.minuteString, dateInLocalTimezone.ampm];
     
     [_slider setValue:frame animated:YES];
     

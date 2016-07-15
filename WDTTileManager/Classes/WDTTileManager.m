@@ -212,15 +212,18 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 -(void)tileLayerDidFinishDownload:(NSString *)frame {
     
     if (_isLoadingFrames) {
+        
         if ([self.delegate respondsToSelector:@selector(animationLoadingProgress:)]) {
             [self.delegate animationLoadingProgress:((float)_animationFrame / (float)_validTimeFrames.count)];
         }
+        
         _animationFrame++;
         if (_animationFrame >= _validTimeFrames.count) {
             [self tileFramesDidFinish];
             return;
         }
         [self getAllValidTiles];
+        
     }
 }
 
@@ -283,6 +286,8 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 
 -(void)animateTile {
     
+    _currentAnimateTile.opacity = kTileHide;
+    
     if (_animationFrame >= _validTimeFrames.count) {
         _animationFrame = 0;
         [_tileLayers lastObject].opacity = kTileHide;
@@ -331,7 +336,9 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
 -(void)showFirstFrame:(BOOL)show {
     
     _currentAnimateTile.opacity = kTileHide;
-    [_tileLayers lastObject].opacity = show ? _opacity : kTileHide;
+    
+    _currentAnimateTile = [_tileLayers lastObject];
+    _currentAnimateTile.opacity = show ? _opacity : kTileHide;
     
     [_radarView updateViewWithTime:[_validTimeFrames lastObject] andFrame:[_validTimeFrames count] - 1];
     
