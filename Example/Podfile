@@ -1,11 +1,3 @@
-use_frameworks!
+platform :ios, '8.0'
 
-target 'WDTTileManager_Example' do
-  pod 'WDTTileManager', :path => '../'
-
-  target 'WDTTileManager_Tests' do
-    inherit! :search_paths
-
-    
-  end
-end
+pod 'WDTTileManager', :path => '../'

@@ -8,11 +8,19 @@
 
 #import "WDTAppDelegate.h"
 
+@import GoogleMaps;
+
+#warning REPLACE THIS WITH YOUR GOOGLE MAPS API KEY
+#define kGMSAPIKey  @"AIzaSyDL7ERjvfCtC-rUYqVwGcRfhL0yeIcYIKk"
+
 @implementation WDTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+
+    [GMSServices provideAPIKey:kGMSAPIKey];
+    
     return YES;
 }
 

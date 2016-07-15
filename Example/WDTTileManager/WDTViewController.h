@@ -7,7 +7,10 @@
 //
 
 @import UIKit;
+@import GoogleMaps;
 
 @interface WDTViewController : UIViewController
+
+@property(nonatomic,retain) IBOutlet GMSMapView *mapView;
 
 @end

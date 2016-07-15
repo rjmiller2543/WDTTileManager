@@ -31,14 +31,19 @@ Manages and animates Radar and SWARM Tiles from WDT.  Also has a customizable vi
   s.ios.deployment_target = '8.0'
 
   s.source_files = 'WDTTileManager/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'WDTTileManager' => ['WDTTileManager/Assets/*.png']
-  # }
+ 
+  ########s.resource_bundles = 'WDTTileManager/Assets/*.{png,xib}'
+#  s.resource_bundles = {
+#    'WDTTileManager' => ['WDTTileManager/Assets/*.{png,xib}']
+    #'WDTTileManager' => ['Pod/WDTTileManager/**/*.xib']
+#  }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
   s.dependency 'VBFPopFlatButton'
   s.dependency 'GoogleMaps'
+  s.dependency 'AFNetworking'
+
+  s.resources = ['WDTTileManager/Assets/*']
 end
