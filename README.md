@@ -7,7 +7,7 @@
 
 ## Example
 
-![Demo](https://raw.github.com/rjmiller2543/WDTTileManager/WDT_POD_GIF.gif)
+![Demo](https://raw.github.com/rjmiller2543/WDTTileManager/Example/WDT_POD_GIF.gif)
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
