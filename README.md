@@ -13,31 +13,31 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 To use, declare a Google Map using either an IBOutlet, or frames
     
-	‘@property(nonatomic,retain) GMSMapView *mapView;’
+	@property(nonatomic,retain) GMSMapView *mapView;
 
 or
     
-	‘@property(nonatomic,retain) IBOutlet GMSMapView *mapView;’
+	@property(nonatomic,retain) IBOutlet GMSMapView *mapView;
 
 then connect the Outlet in your Storyboard or XIB
 and declare the tile manager
 
-	‘@property(nonatomic,retain) WDTTileManager *tileManager;’
+	@property(nonatomic,retain) WDTTileManager *tileManager;
 
 If not using an outlet, instantiate your map
     
-	‘_mapView = [[GMSMapView alloc] initWithFrame:frame];’
+	_mapView = [[GMSMapView alloc] initWithFrame:frame];
 
 Create the tile manager
 
-    	‘_tileManager = [[WDTTileManager alloc] initWithMap:_mapView appKey:kWDTAppKey appID:kWDTAppID delegate:self];’
+    	_tileManager = [[WDTTileManager alloc] initWithMap:_mapView appKey:kWDTAppKey appID:kWDTAppID delegate:self];
 
 To Customize the view and animation Speed
 
-	‘[_tileManager setTopBarBackgroundColor:[UIColor darkGrayColor]];
+	[_tileManager setTopBarBackgroundColor:[UIColor darkGrayColor]];
     	[_tileManager setBottomBarBackgroundColor:[UIColor darkGrayColor]];
     	[_tileManager setTintColor:[UIColor grayColor]];
-    	[_tileManager setAnimationTime:0.3];’
+    	[_tileManager setAnimationTime:0.3];
 
 ## Requirements
 
