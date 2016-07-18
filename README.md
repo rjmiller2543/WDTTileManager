@@ -7,7 +7,7 @@
 
 ## Example
 
-![Alt text](http://static1.squarespace.com/static/56a785c4cbced6755b9afb99/56a8e4dffd5d08ec9be3a9e4/57894c80d2b857691ee23a15/1468615817331/WDT_POD_GIF.gif?format=1000w “Demo”)
+![Demo](http://static1.squarespace.com/static/56a785c4cbced6755b9afb99/56a8e4dffd5d08ec9be3a9e4/57894c80d2b857691ee23a15/1468615817331/WDT_POD_GIF.gif?format=1000w “Demo”)
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
