@@ -42,6 +42,7 @@
     [_tileManager setTopBarBackgroundColor:[UIColor darkGrayColor]];
     [_tileManager setBottomBarBackgroundColor:[UIColor darkGrayColor]];
     [_tileManager setTintColor:[UIColor grayColor]];
+    [_tileManager setAnimationTime:0.3];
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:39.8282
                                                             longitude:-98.5795

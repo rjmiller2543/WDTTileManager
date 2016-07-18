@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'WDTTileManager'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'WDTTileManager is a Google Maps Integration for WDT SWARM and RADAR Tiles.'
 
 # This description is used to generate tags and improve search results.
@@ -22,7 +22,7 @@ Manages and animates Radar and SWARM Tiles from WDT.  Also has a customizable vi
                        DESC
 
   s.homepage         = 'https://github.com/rjmiller2543/WDTTileManager'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.screenshots     = 'http://static1.squarespace.com/static/56a785c4cbced6755b9afb99/56a8e4dffd5d08ec9be3a9e4/57894c80d2b857691ee23a15/1468615817331/WDT_POD_GIF.gif?format=1000w'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'rjmiller2543' => 'robertmiller2543@gmail.com' }
   s.source           = { :git => 'https://github.com/rjmiller2543/WDTTileManager.git', :tag => s.version.to_s }

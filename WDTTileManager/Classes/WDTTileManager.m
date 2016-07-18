@@ -62,6 +62,9 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
         //Set with Default Tile Size
         _tileSize = 1024;
         
+        //Set the Default Animation Time
+        _animationTime = 0.5;
+        
         _isLoadingFrames = YES;
         _appKey = appKey;
         _appID = appID;
@@ -318,7 +321,7 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     _isLoadingFrames = YES;
     
     _animationFrame = 0;
-    _animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(animateTile) userInfo:nil repeats:YES];
+    _animationTimer = [NSTimer scheduledTimerWithTimeInterval:_animationTime target:self selector:@selector(animateTile) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_animationTimer forMode:NSDefaultRunLoopMode];
 }
 
@@ -410,6 +413,22 @@ typedef void (^ValidFrameCallback)(NSData * _Nullable data, NSURLResponse * _Nul
     
 }
 
+-(void)setAnimationTime:(float)animationTime {
+    
+    _animationTime = animationTime;
+    
+    if (_isAnimating) {
+        [self stopAnimation];
+        [self startAnimation];
+    }
+    
+}
+
+-(void)hideControlView:(BOOL)hidden {
+    
+    _radarView.hidden = hidden;
+    
+}
 
 #pragma mark - Radar Controller Delegate Methods
 -(void)radarControllerNowButtonPressed {
